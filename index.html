@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Hạt Nhà – Cà phê rang xay</title>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f6f8f4;--surface:#fff;--ink:#1b2a25;--muted:#5d6b65;--green:#2d5b4d;--accent:#f0bf4c;--accent-ink:#2b2100;--line:#dde4de;--tile:#e9efe9;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#121a17;--surface:#1a2420;--ink:#eef3ef;--muted:#9fb0a8;--green:#7fc4ad;--accent:#f0bf4c;--accent-ink:#2b2100;--line:#2a3833;--tile:#22302b;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#121a17;--surface:#1a2420;--ink:#eef3ef;--muted:#9fb0a8;--green:#7fc4ad;--accent:#f0bf4c;--accent-ink:#2b2100;--line:#2a3833;--tile:#22302b;color-scheme:dark}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Be Vietnam Pro",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;line-height:1.55}
+button,input,textarea{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.wrap{max-width:1040px;margin:0 auto;padding:0 20px}
+header{position:sticky;top:env(safe-area-inset-top,0px);background:var(--bg);border-bottom:1px solid var(--line);z-index:5}
+header .wrap{display:flex;align-items:center;justify-content:space-between;height:60px}
+.logo{font-weight:800;font-size:20px;letter-spacing:-.01em}
+.cartbtn{background:var(--green);color:var(--bg);border:0;border-radius:999px;padding:8px 16px;font-weight:700;cursor:pointer}
+:root[data-theme="dark"] .cartbtn{color:#0e1512}
+.hero{padding:56px 0 36px;display:grid;gap:12px}
+.hero h1{font-size:clamp(34px,7vw,60px);line-height:1.08;margin:0;letter-spacing:-.02em;font-weight:800;max-width:14em}
+.hero p{margin:0;color:var(--muted);max-width:34em;font-size:17px}
+.perks{display:flex;flex-wrap:wrap;gap:8px 20px;margin-top:10px;font-size:14px;font-weight:500}
+.perks span::before{content:"✓ ";color:var(--green);font-weight:800}
+.chips{display:flex;gap:8px;margin:20px 0;flex-wrap:wrap}
+.chip{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:6px 16px;cursor:pointer;font-size:14px}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:18px;padding-bottom:56px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden;display:flex;flex-direction:column}
+.tile{aspect-ratio:4/3;display:grid;place-items:center;background:var(--tile)}
+.tile svg{width:46%;height:auto}
+.body{padding:14px 16px 16px;display:flex;flex-direction:column;gap:4px;flex:1}
+.body h3{margin:0;font-size:17px}
+.body .note{color:var(--muted);font-size:14px;margin:0;flex:1}
+.row{display:flex;align-items:center;justify-content:space-between;margin-top:10px}
+.price{font-weight:800;font-size:17px}
+.price small{font-weight:400;color:var(--muted);font-size:13px}
+.add{background:var(--accent);color:var(--accent-ink);border:0;border-radius:8px;padding:8px 14px;font-weight:700;cursor:pointer}
+.add:active{transform:scale(.96)}
+footer{border-top:1px solid var(--line);padding:24px 0 40px;color:var(--muted);font-size:14px}
+.scrim{position:fixed;inset:0;background:rgba(0,0,0,.45);opacity:0;pointer-events:none;transition:opacity .2s;z-index:10}
+.scrim.on{opacity:1;pointer-events:auto}
+aside{position:fixed;top:0;right:0;bottom:0;width:min(420px,100%);background:var(--surface);z-index:11;transform:translateX(100%);transition:transform .25s;display:flex;flex-direction:column;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+aside.on{transform:none}
+.ah{display:flex;justify-content:space-between;align-items:center;padding:16px 20px;border-bottom:1px solid var(--line)}
+.ah h2{margin:0;font-size:18px}
+.x{background:none;border:0;font-size:26px;cursor:pointer;line-height:1}
+.items{flex:1;overflow:auto;padding:8px 20px}
+.empty{color:var(--muted);padding:32px 0;text-align:center}
+.item{display:grid;grid-template-columns:1fr auto;gap:2px 12px;padding:12px 0;border-bottom:1px solid var(--line)}
+.item b{font-weight:700}
+.qty{display:flex;align-items:center;gap:8px;grid-column:1}
+.qty button{width:28px;height:28px;border-radius:50%;border:1px solid var(--line);background:none;cursor:pointer}
+.foot{padding:16px 20px;border-top:1px solid var(--line);display:grid;gap:8px}
+.foot input,.foot textarea{width:100%;border:1px solid var(--line);border-radius:8px;padding:9px 12px;background:var(--bg)}
+.total{display:flex;justify-content:space-between;font-weight:800;font-size:18px}
+.order{background:var(--green);color:var(--bg);border:0;border-radius:10px;padding:12px;font-weight:700;cursor:pointer}
+:root[data-theme="dark"] .order{color:#0e1512}
+.order:disabled{opacity:.45;cursor:not-allowed}
+.err{color:#c0392b;font-size:13px;min-height:1em;margin:0}
+.done{padding:40px 24px;text-align:center;display:grid;gap:10px}
+.done h2{margin:0}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<header><div class="wrap"><div class="logo">Hạt Nhà</div><button class="cartbtn" id="open" aria-label="Mở giỏ hàng">Giỏ hàng (<span id="count">0</span>)</button></div></header>
+
+<main class="wrap">
+  <section class="hero">
+    <h1>Cà phê rang mới mỗi tuần, từ vườn Đà Lạt đến bàn bạn</h1>
+    <p>Rang theo đơn, đóng gói trong 48 giờ. Chọn loại hạt hoặc xay sẵn theo cách pha của bạn.</p>
+    <div class="perks"><span>Rang theo đơn</span><span>Miễn phí ship từ 300.000đ</span><span>Đổi trả trong 7 ngày</span></div>
+  </section>
+
+  <div class="chips" role="group" aria-label="Lọc sản phẩm" id="chips"></div>
+  <section class="grid" id="grid" aria-live="polite"></section>
+</main>
+
+<footer><div class="wrap">Hạt Nhà · Trang mẫu do Claude tạo, đơn hàng ở đây chưa được gửi đi thật.</div></footer>
+
+<div class="scrim" id="scrim"></div>
+<aside id="cart" aria-label="Giỏ hàng" aria-hidden="true">
+  <div class="ah"><h2>Giỏ hàng</h2><button class="x" id="close" aria-label="Đóng giỏ hàng">×</button></div>
+  <div class="items" id="items"></div>
+  <div class="foot" id="foot">
+    <div class="total"><span>Tổng cộng</span><span id="total">0đ</span></div>
+    <input id="name" placeholder="Họ và tên" autocomplete="name">
+    <input id="phone" placeholder="Số điện thoại" inputmode="tel" autocomplete="tel">
+    <textarea id="addr" rows="2" placeholder="Địa chỉ nhận hàng" autocomplete="street-address"></textarea>
+    <p class="err" id="err" role="alert"></p>
+    <button class="order" id="order">Đặt hàng</button>
+  </div>
+</aside>
+
+<script>
+var PRODUCTS=[
+{id:1,name:"Robusta Buôn Ma Thuột",note:"Đậm, đắng hậu ngọt. Hợp pha phin.",price:145000,cat:"Pha phin",color:"#7a4a2b"},
+{id:2,name:"Arabica Cầu Đất",note:"Chua thanh, hương hoa quả chín.",price:195000,cat:"Pha máy",color:"#b5653a"},
+{id:3,name:"Blend Sáng Sài Gòn",note:"70% Robusta, 30% Arabica, cân bằng.",price:165000,cat:"Pha phin",color:"#5a3a24"},
+{id:4,name:"Espresso Nhà Làm",note:"Rang vừa, nhiều crema, dùng cho máy.",price:185000,cat:"Pha máy",color:"#3d2a1f"},
+{id:5,name:"Cold Brew Mix",note:"Xay thô, ủ lạnh 12 giờ là có ly mát.",price:175000,cat:"Ủ lạnh",color:"#2d5b4d"},
+{id:6,name:"Culi Cầu Đất",note:"Hạt tròn, vị mạnh, ít chua.",price:155000,cat:"Pha phin",color:"#8c5b34"}
+];
+var cart={},filter="Tất cả";
+var $=function(i){return document.getElementById(i)};
+var money=function(n){return n.toLocaleString("vi-VN")+"đ"};
+function bag(c){return '<svg viewBox="0 0 60 76" aria-hidden="true"><path d="M10 18h40l4 52a4 4 0 0 1-4 4H10a4 4 0 0 1-4-4z" fill="'+c+'"/><path d="M10 18l4-12h32l4 12z" fill="'+c+'" opacity=".7"/><circle cx="30" cy="44" r="11" fill="#f6f1e6" opacity=".92"/><path d="M30 36c-5 5 5 11 0 16" stroke="'+c+'" stroke-width="3" fill="none"/></svg>'}
+function renderChips(){
+  var cats=["Tất cả"];PRODUCTS.forEach(function(p){if(cats.indexOf(p.cat)<0)cats.push(p.cat)});
+  $("chips").innerHTML=cats.map(function(c){return '<button class="chip" data-c="'+c+'" aria-pressed="'+(c===filter)+'">'+c+'</button>'}).join("");
+}
+function renderGrid(){
+  $("grid").innerHTML=PRODUCTS.filter(function(p){return filter==="Tất cả"||p.cat===filter}).map(function(p){
+    return '<article class="card"><div class="tile">'+bag(p.color)+'</div><div class="body"><h3>'+p.name+'</h3><p class="note">'+p.note+'</p><div class="row"><span class="price">'+money(p.price)+' <small>/ 250g</small></span><button class="add" data-id="'+p.id+'">Thêm</button></div></div></article>';
+  }).join("");
+}
+function renderCart(){
+  var ids=Object.keys(cart),n=0,t=0;
+  var html=ids.map(function(id){
+    var p=PRODUCTS.filter(function(x){return x.id==id})[0],q=cart[id];n+=q;t+=q*p.price;
+    return '<div class="item"><b>'+p.name+'</b><span>'+money(p.price*q)+'</span><div class="qty"><button data-d="-1" data-id="'+id+'" aria-label="Giảm số lượng">−</button><span>'+q+'</span><button data-d="1" data-id="'+id+'" aria-label="Tăng số lượng">+</button></div></div>';
+  }).join("");
+  $("items").innerHTML=html||'<div class="empty">Giỏ hàng đang trống. Chọn một gói cà phê để bắt đầu.</div>';
+  $("count").textContent=n;
+  var ship=t>=300000||t===0?0:25000;
+  $("total").textContent=money(t+ship)+(ship?" (gồm ship 25.000đ)":"");
+  $("order").disabled=!n;
+}
+function toggle(on){$("cart").classList.toggle("on",on);$("scrim").classList.toggle("on",on);$("cart").setAttribute("aria-hidden",!on)}
+$("chips").onclick=function(e){var c=e.target.getAttribute("data-c");if(c){filter=c;renderChips();renderGrid()}};
+$("grid").onclick=function(e){var id=e.target.getAttribute("data-id");if(id){cart[id]=(cart[id]||0)+1;renderCart();e.target.textContent="Đã thêm";setTimeout(function(){e.target.textContent="Thêm"},900)}};
+$("items").onclick=function(e){var id=e.target.getAttribute("data-id");if(!id)return;cart[id]+=+e.target.getAttribute("data-d");if(cart[id]<=0)delete cart[id];renderCart()};
+$("open").onclick=function(){toggle(true)};$("close").onclick=$("scrim").onclick=function(){toggle(false)};
+$("order").onclick=function(){
+  var nm=$("name").value.trim(),ph=$("phone").value.trim(),ad=$("addr").value.trim();
+  if(!nm||!/^[0-9+\s.]{9,13}$/.test(ph)||!ad){$("err").textContent="Vui lòng nhập đủ họ tên, số điện thoại hợp lệ và địa chỉ.";return}
+  $("err").textContent="";
+  $("foot").style.display="none";
+  $("items").innerHTML='<div class="done"><h2>Đã nhận đơn của '+nm.replace(/[<>&]/g,"")+'</h2><p>Đây là trang mẫu nên đơn chưa được gửi đi. Khi dùng thật, đơn sẽ được chuyển về Zalo hoặc email của shop để xác nhận.</p></div>';
+  cart={};$("count").textContent=0;
+};
+renderChips();renderGrid();renderCart();
+</script>
+</body>
+</html>
